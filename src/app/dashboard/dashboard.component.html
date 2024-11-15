@@ -1,0 +1,417 @@
+<!-- src/app/dashboard/dashboard.component.html -->
+<h3 class="py-3 text-center" style="background-color: #2F5597">Dashboard</h3>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebatext-white text-dark">
+
+      <ul class="nav flex-column" style="font-size: x-large ;">
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="javascript:void(0)" (click)="openAddBookModal()"><i
+              class="bi bi-plus-circle"></i> Add Book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="javascript:void(0)" (click)="openDeleteBookModal()"><i
+              class="bi bi-trash"></i> Delete Book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="javascript:void(0)" (click)="openViewBookModal()"><i
+              class="bi bi-book"></i> View Books</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="#"><i class="bi bi-person-plus"></i> Add Student</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="#"><i class="bi bi-journal-arrow-down"></i> Issue
+            Book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="#"><i class="bi bi-arrow-left"></i> Return Book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="#"><i class="bi bi-file-earmark-text"></i> Report</a>
+        </li>
+      </ul>
+    </div>
+
+
+    <!--  Add Book Modal HTML Structure -->
+    <div class="modal fade fullscreen-modal" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: #2222f0; text-align: center;">
+            <h5 class="modal-title" id="addBookModalLabel" style="color: white; width: 100%;">Add Book</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form [formGroup]="addBookForm" (ngSubmit)="submitAddBookForm()" class="book-form">
+              <!-- ISBN Number -->
+              <div class="row mb-2">
+                <div  class="col-1"></div>
+                <label for="isbn" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['isbn'].valid || !addBookForm.controls['isbn'].touched,
+                'text-red': addBookForm.controls['isbn'].invalid && addBookForm.controls['isbn'].touched 
+              }">
+                  ISBN Number
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="isbn" formControlName="isbn" required minlength="5"
+                    maxlength="50" pattern="^[0-9]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['isbn'].valid || !addBookForm.controls['isbn'].touched,
+                  'text-red': addBookForm.controls['isbn'].invalid && addBookForm.controls['isbn'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Number only
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <!-- Name -->
+                <div  class="col-1"></div>
+                <label for="name" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['name'].valid || !addBookForm.controls['name'].touched,
+                'text-red': addBookForm.controls['name'].invalid && addBookForm.controls['name'].touched 
+              }">
+                  Name
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="name" formControlName="name" required minlength="5"
+                    maxlength="50" pattern="^[a-zA-Z\s]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['name'].valid || !addBookForm.controls['name'].touched,
+                  'text-red': addBookForm.controls['name'].invalid && addBookForm.controls['name'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Alpha
+                  </small>
+                </div>
+              </div>
+              <!--  Author -->
+              <div class="row mb-2">
+                <!-- Author -->
+                <div  class="col-1"></div>
+                <label for="author" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['author'].valid || !addBookForm.controls['author'].touched,
+                'text-red': addBookForm.controls['author'].invalid && addBookForm.controls['author'].touched 
+              }">
+                  Author
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="author" formControlName="author" required minlength="5"
+                    maxlength="50" pattern="^[a-zA-Z\s]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['author'].valid || !addBookForm.controls['author'].touched,
+                  'text-red': addBookForm.controls['author'].invalid && addBookForm.controls['author'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Alpha
+                  </small>
+                </div>
+              </div>
+
+              <!-- Publication -->
+
+              <div class="row mb-2">
+                <div  class="col-1"></div>
+                <label for="publication" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['publication'].valid || !addBookForm.controls['publication'].touched,
+                'text-red': addBookForm.controls['publication'].invalid && addBookForm.controls['publication'].touched 
+              }">
+                  Publication
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="publication" formControlName="publication" required
+                    minlength="5" maxlength="50" pattern="^[a-zA-Z\s]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['publication'].valid || !addBookForm.controls['publication'].touched,
+                  'text-red': addBookForm.controls['publication'].invalid && addBookForm.controls['publication'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Alpha
+                  </small>
+                </div>
+              </div>
+
+              <!-- Details -->
+
+              <div class="row mb-2">
+                <div  class="col-1"></div>
+                <label for="details" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['details'].valid || !addBookForm.controls['details'].touched,
+                'text-red': addBookForm.controls['details'].invalid && addBookForm.controls['details'].touched 
+              }">
+                  Details
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control details-input" id="details" formControlName="details" required
+                    minlength="5" maxlength="50" pattern="^[a-zA-Z0-9\s]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['details'].valid || !addBookForm.controls['details'].touched,
+                  'text-red': addBookForm.controls['details'].invalid && addBookForm.controls['details'].touched 
+                }">
+                    Min – 5, Max – 250, Type – Alpha
+                  </small>
+                </div>
+              </div>
+
+              <!-- Qty. -->
+              <div class="row mb-2">
+                <div  class="col-1"></div>
+                <label for="qty" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['qty'].valid || !addBookForm.controls['qty'].touched,
+                'text-red': addBookForm.controls['qty'].invalid && addBookForm.controls['qty'].touched 
+              }">
+                  Qty.
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="qty" formControlName="qty" required minlength="5"
+                    maxlength="50" pattern="^[0-9]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['qty'].valid || !addBookForm.controls['qty'].touched,
+                  'text-red': addBookForm.controls['qty'].invalid && addBookForm.controls['qty'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Number only
+                  </small>
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="row mb-2">
+                <div  class="col-1"></div>
+                <label for="price" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['price'].valid || !addBookForm.controls['price'].touched,
+                'text-red': addBookForm.controls['price'].invalid && addBookForm.controls['price'].touched 
+              }">
+                  Price
+                </label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="price" formControlName="price" required minlength="5"
+                    maxlength="50" pattern="^[0-9]*$" />
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['price'].valid || !addBookForm.controls['price'].touched,
+                  'text-red': addBookForm.controls['price'].invalid && addBookForm.controls['price'].touched 
+                }">
+                    Min – 5, Max – 50, Type – Number only
+                  </small>
+                </div>
+              </div>
+
+              <!-- Branch -->
+
+              <div class="row mb-2">
+                <!-- Branch -->
+                <div  class="col-1"></div>
+                <label for="branch" class="col-2 col-form-label d-flex align-items-center" [ngClass]="{ 
+                'text-black': addBookForm.controls['branch'].valid || !addBookForm.controls['branch'].touched,
+                'text-red': addBookForm.controls['branch'].invalid && addBookForm.controls['branch'].touched 
+              }">
+                  Branch
+                </label>
+                <div class="col-5">
+                  <select class="form-control" id="branch" formControlName="branch" required>
+                    <option value="" disabled>Select a branch</option>
+                    <option *ngFor="let branch of branches" [value]="branch">{{ branch }}</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <small class="hint" [ngClass]="{ 
+                  'text-black': addBookForm.controls['branch'].valid || !addBookForm.controls['branch'].touched,
+                  'text-red': addBookForm.controls['branch'].invalid && addBookForm.controls['branch'].touched 
+                }">
+                    Please select a branch.
+                  </small>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="row mb-2">
+                <div class="col-5 offset-3 mt-3">
+                  <button type="submit" class="btn btn-primary w-100" [disabled]="addBookForm.invalid">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal HTML for Delete Book -->
+
+    <div class="modal fade fullscreen-modal" id="deleteBookModal" tabindex="-1" aria-labelledby="deleteBookModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header" style="background-color: #2222f0; text-align: center;">
+            <h5 class="modal-title" id="deleteBookModalLabel" style="color: white; width: 100%;">Delete Book</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered text-center">
+              <thead class="bg-success text-white">
+                <tr>
+                  <th></th>
+                  <th>Book Name</th>
+                  <th>Author</th>
+                  <th>Publication</th>
+                  <th>Qty.</th>
+                  <th>Price</th>
+                  <th>Branch</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let book of books">
+                  <td>{{ book.id }}</td>
+                  <td>{{ book.name }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.publication }}</td>
+                  <td>{{ book.quantity }}</td>
+                  <td>{{ book.price | currency }}</td>
+                  <td>{{ book.branch }}</td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">
+                      <!-- <img src="path/to/delete-icon.png" alt="Delete" width="20" /> -->
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for View Books -->
+
+    <div class="modal fade fullscreen-modal" id="viewBookModal" tabindex="-1" aria-labelledby="viewBookModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header" style="background-color: #2222f0; text-align: center;">
+            <h5 class="modal-title" id="viewBookModalLabel" style="color: white; width: 100%;">View Book</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered text-center">
+              <thead class="bg-success text-white">
+                <tr>
+                  <th></th>
+                  <th>Book Name</th>
+                  <th>Author</th>
+                  <th>Publication</th>
+                  <th>Qty.</th>
+                  <th>Price</th>
+                  <th>Branch</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let book of books">
+                  <td>{{ book.id }}</td>
+                  <td>{{ book.name }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.publication }}</td>
+                  <td>{{ book.quantity }}</td>
+                  <td>{{ book.price | currency : "Rs" }}</td>
+                  <td>{{ book.branch }}</td>
+                  <td>
+                    <!-- <button type="button" class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">
+                  
+                  <i class="fas fa-trash-alt"></i>
+                </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="col-md-10">
+      <div class="row mt-4">
+        <!-- Bar Chart -->
+        <div class="col-md-5 bar-charts" >
+          <h5>No. Of Books</h5>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [legend]="barChartLegend" [chartType]="barChartType" style="color: blue;">
+          </canvas>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <!-- Pie Chart -->
+        <div class="col-md-5 pie-charts" >
+          <h5>No. Of Books</h5>
+          <canvas baseChart
+           [datasets]="pieChartData" [options]="pieChartOptions" [legend]="pieChartLegend"
+            [chartType]="pieChartType" [labels]="pieChartLabels">
+          </canvas>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+
+      </div>
+
+      <!-- Issued Book Summary Table -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h5>Issued Book Summary</h5>
+          <table class="table table-sm" id="books">
+             
+            <tr>
+              <th>ISBN</th>
+              <th>Book Name</th>
+              <th>Author</th>
+              <th>Roll No.</th>
+              <th>Name</th>
+              <th>Issued On</th>
+            </tr>
+         
+         
+            <tr *ngFor="let book of issuedBooks">
+              <td>{{ book.isbn }}</td>
+              <td>{{ book.name }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.rollNo }}</td>
+              <td>{{ book.studentName }}</td>
+              <td>{{ book.issuedOn }}</td>
+            </tr>
+         
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

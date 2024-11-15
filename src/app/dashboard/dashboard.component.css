@@ -1,0 +1,139 @@
+
+.sidebar {
+    height: 100vh;
+    padding-top: 20px;
+    background-color: #ffffff; 
+  }
+  
+  .sidebar .nav-link {
+    font-size: 18px;
+    padding: 10px;
+    color: #333333;
+    font-weight: bold;
+    
+  }
+  .sidebar .nav-link i {
+    font-size: 1.4rem; /* Adjust icon size */
+    margin-right: 10px; /* Add space between icon and text */
+}
+  
+  .table {
+    background-color: #e7f2e8;
+  }
+
+  /* Full-screen modal */
+.fullscreen-modal .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  max-width: none;
+}
+
+.fullscreen-modal .modal-content {
+  height: 100%;
+  border-radius: 0;
+}
+
+.fullscreen-modal .modal-header, .fullscreen-modal .modal-footer {
+  padding: 1rem 2rem;
+}
+
+.fullscreen-modal .modal-body {
+  overflow-y: auto;
+}
+
+/* Hint Styling */
+
+/* .hint {
+  font-size: 0.8rem;
+  color: black;
+  display: block;
+  margin-top: 4px;
+}
+
+.hint-error {
+  color: red;
+} */
+.text-black {
+  color: black;
+}
+
+.text-red {
+  color: red;
+}
+.details-input {
+  height: 70px; /* Adjust the height as needed */
+  padding-top: 10px; /* Add padding to make the text more centered */
+  padding-bottom: 10px;
+}
+
+.table th {
+  border: 1px solid rgb(0, 180, 0);
+  padding: 8px;
+}
+td{
+  border: 1px solid rgb(0, 180, 0);
+}
+ 
+table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+ 
+table tr:hover {
+  background-color: #ddd;
+}
+ 
+/* tbody tr {
+  background-color: #f2f2f2 !important;
+} */
+ 
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(225, 223, 223);
+  /* //color: white; //#ddd;*/
+}
+ 
+#books{
+  border: 1px solid rgb(0, 180, 0);
+}
+ 
+#books th {
+  border: 1px solid rgb(0, 180, 0);
+  padding: 8px;
+}
+ 
+#books {
+  border: 1px solid rgb(0, 180, 0);
+}
+ 
+#books tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+#books tr:nth-child(even) {
+  background-color: #fefefe;
+}
+#books tr:hover {
+  background-color: #ddd;
+}
+ 
+.bar-charts{
+  text-align: center;
+  border: solid black 1px;
+  border-radius: 5px;
+  background-image: linear-gradient(rgb(248, 245, 245), rgb(202, 189, 216),white);
+}
+.pie-charts{
+  text-align: center;
+  border: solid black 1px;
+  border-radius: 5px;
+  /* background-color: #fffefe; */
+   background-color: #fffefe;
+}
+ 
+
+
+
+
+  

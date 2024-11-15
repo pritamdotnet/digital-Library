@@ -1,0 +1,12 @@
+main{
+    text-align: center;
+    padding: 10%;
+    /* background-image: linear-gradient(rgb(150, 210, 221),rgb(209, 220, 242),); */
+    background-image: linear-gradient(white,rgb(207, 226, 245),rgb(175, 198, 242));
+    height: 700px;
+}
+
+h2{
+    font-size: 60px;
+    color: #2F5597;
+}

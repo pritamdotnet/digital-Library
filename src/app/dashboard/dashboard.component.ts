@@ -3,6 +3,7 @@ import {  ChartType,ChartData  } from 'chart.js';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
+import { ChartService } from '../chart.service';
 
 
 @Component({
@@ -23,31 +24,52 @@ export class DashboardComponent implements OnInit {
  
 
     // Bar chart data
-    public barChartOptions = {
-      scaleShowVerticalLines: false,
-      responsive: true,
-    };
-    public barChartLabels = ['Person 1', 'Person 2', 'Person 3', 'Person 4', 'Person 5'];
-    public barChartType:ChartType = 'bar';
-    public barChartLegend = true;
-    public barChartData = [
-      { data: [5, 8, 12, 7, 4], label: 'No. Of Books',backgroundColor:'blue' }
-    ];
+//     public barChartOptions = {
+//       scaleShowVerticalLines: false,
+//       responsive: true,
+//     };
+//     public barChartLabels = ['Person 1', 'Person 2', 'Person 3', 'Person 4', 'Person 5'];
+//     public barChartType:ChartType = 'bar';
+//     public barChartLegend = true;
+//     public barChartData = [
+//       { data: [5, 8, 12, 7, 4], label: 'No. Of Books',backgroundColor:'blue' }
+//     ];
   
-    // Pie chart data
-    public pieChartLabels = ['Person 1', 'Person 2', 'Person 3', 'Person 4', 'Person 5'];
-    public pieChartData = [
-      { data: [14, 22, 33, 20, 11], label: 'No. Of Books',
-        backgroundColor:['#2B65BDFF','#DF7117FF','#b0b0a8','#DDBE0EF1','#73ABF5EF']
-       }
-    ];
-    public pieChartType:ChartType = 'pie';
-    public pieChartLegend = true;
-  public pieChartOptions = {
+//     // Pie chart data
+//     public pieChartLabels = ['Person 1', 'Person 2', 'Person 3', 'Person 4', 'Person 5'];
+//     public pieChartData = [
+//       { data: [14, 22, 33, 20, 11], label: 'No. Of Books',
+//         backgroundColor:['#2B65BDFF','#DF7117FF','#b0b0a8','#DDBE0EF1','#73ABF5EF']
+//        }
+//     ];
+//     public pieChartType:ChartType = 'pie';
+//     public pieChartLegend = true;
+//   public pieChartOptions = {
+//   responsive: true,
+//   maintainAspectRatio: false,  
+//   aspectRatio: 1.5  
+// };
+
+
+public barChartOptions = {
+  scaleShowVerticalLines: false,
   responsive: true,
-  maintainAspectRatio: false,  
-  aspectRatio: 1.5  
 };
+public barChartLabels: string[] = [];
+public barChartType:ChartType = 'bar';
+public barChartLegend = true;
+public barChartData: any[] = [];
+
+public pieChartLabels: string[] = [];
+public pieChartData: any[] = [];
+public pieChartType:ChartType = 'pie';
+public pieChartLegend = true;
+public pieChartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  aspectRatio: 1.5,
+};
+
 
   
     // Issued Book Summary data
@@ -57,9 +79,18 @@ export class DashboardComponent implements OnInit {
       // Add more sample data as needed
     ];
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: FormBuilder,private chartService: ChartService ) { }
 
     ngOnInit(): void {
+    // Load Bar Chart Data
+    this.barChartData = this.chartService.getBarChartData();
+    this.barChartLabels = this.chartService.getBarChartLabels();
+
+    // Load Pie Chart Data
+    this.pieChartData = this.chartService.getPieChartData();
+    this.pieChartLabels = this.chartService.getPieChartLabels();
+
+
       this.addBookForm = this.fb.group({
         isbn: ['', [Validators.required, Validators.pattern('^[0-9]*$'),Validators.minLength(5), Validators.maxLength(50)]],
         name: ['', [Validators.required,Validators.pattern("^[a-zA-Z\\s]*$"), Validators.minLength(5), Validators.maxLength(50)]],

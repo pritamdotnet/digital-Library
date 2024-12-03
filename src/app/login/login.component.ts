@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -12,25 +13,26 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {  
   username: string = '';
   password: string = '';
-  // username: any = '';
-  // password: any = '';
   loggedIn: any = false;
   errorMessage: any = '';
 
-  constructor(private router: Router) {
-     
-   }
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void { }
+  // onLogin(): void {
+
+  //   if (this.username && this.password) {
+  //     this.router.navigate(['/dashboard']);
+  //   } else {
+  //     alert('Please enter both username and password');
+  //   }
+  // }
   onLogin(): void {
-    // For simplicity, we’ll just check if fields are filled.
-    // Implement actual authentication here.
-    if (this.username && this.password) {
+    if (this.authService.login(this.username, this.password)) {
       this.router.navigate(['/dashboard']);
     } else {
-      alert('Please enter both username and password');
+      this.errorMessage = 'Invalid username or password';
+      alert(this.errorMessage);
     }
   }
 

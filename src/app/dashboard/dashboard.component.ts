@@ -3,7 +3,10 @@ import {  ChartType,ChartData  } from 'chart.js';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
-import { ChartService } from '../chart.service';
+import { ChartService } from '../services/chart.service';
+import { DashboardService } from '../services/dashboard.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,10 +20,12 @@ export class DashboardComponent implements OnInit {
  //  branches = ['IT', 'Civil', 'Mechanical'];
   branches: string[] = ['IT', 'Civil', 'Mechanical']; 
   //books!: FormGroup;
-  books = [
-    { id: 1, name: 'Book 1', author: 'Author 1', publication: 'Publisher 1', quantity: 10, price: 25.99, branch: 'Branch 1' },
-    { id: 2, name: 'Book 2', author: 'Author 2', publication: 'Publisher 2', quantity: 5, price: 15.49, branch: 'Branch 2' },
-  ];
+  books: any[] = [];
+  issuedBooks: any[] = [];
+  // books = [
+  //   { id: 1, name: 'Book 1', author: 'Author 1', publication: 'Publisher 1', quantity: 10, price: 25.99, branch: 'Branch 1' },
+  //   { id: 2, name: 'Book 2', author: 'Author 2', publication: 'Publisher 2', quantity: 5, price: 15.49, branch: 'Branch 2' },
+  // ];
  
 
     // Bar chart data
@@ -73,13 +78,16 @@ public pieChartOptions = {
 
   
     // Issued Book Summary data
-    issuedBooks = [
-      { isbn: '12345', name: 'Angular Guide', author: 'Author 1', rollNo: '101', studentName: 'John Doe', issuedOn: '2024-10-01' },
-      { isbn: '67890', name: 'Learning TypeScript', author: 'Author 2', rollNo: '102', studentName: 'Jane Smith', issuedOn: '2024-10-03' },
-      // Add more sample data as needed
-    ];
+    // issuedBooks = [
+    //   { isbn: '12345', name: 'Angular Guide', author: 'Author 1', rollNo: '101', studentName: 'John Doe', issuedOn: '2024-10-01' },
+    //   { isbn: '67890', name: 'Learning TypeScript', author: 'Author 2', rollNo: '102', studentName: 'Jane Smith', issuedOn: '2024-10-03' },
+      
+    // ];
 
-    constructor(private fb: FormBuilder,private chartService: ChartService ) { }
+    constructor(private fb: FormBuilder,private chartService: ChartService,
+                 private dashboardServics: DashboardService,
+                 private authService: AuthService,
+                private router: Router ) { }
 
     ngOnInit(): void {
     // Load Bar Chart Data
@@ -90,6 +98,9 @@ public pieChartOptions = {
     this.pieChartData = this.chartService.getPieChartData();
     this.pieChartLabels = this.chartService.getPieChartLabels();
 
+        // Load book and issued book data from service
+    this.books = this.dashboardServics.getBooks();
+    this.issuedBooks = this.dashboardServics.getIssuedBooks();
 
       this.addBookForm = this.fb.group({
         isbn: ['', [Validators.required, Validators.pattern('^[0-9]*$'),Validators.minLength(5), Validators.maxLength(50)]],
@@ -121,8 +132,6 @@ public pieChartOptions = {
       modal.show();
     }
     deleteBook(id: number) {
-      // Implement your delete logic here
-     // this.books = this.books.filter(book => book.id !== id);
       alert('Book deleted successfully!');
     }
 
@@ -130,6 +139,11 @@ public pieChartOptions = {
       const modalElement = document.getElementById('viewBookModal') as HTMLElement;
       const modal = new bootstrap.Modal(modalElement);
       modal.show();
+    }
+
+    logout(): void {
+      this.authService.logout();
+      this.router.navigate(['/login']);
     }
 
 }
